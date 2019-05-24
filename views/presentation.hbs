@@ -1,0 +1,35 @@
+{{#> "layouts/main"}}
+{{#*inline "title"}}
+NoSQL - Presentation
+{{/inline}}
+{{#*inline "content"}}
+<div class="carousel carousel-slider">
+  <div class="carousel-fixed-item center">
+    <button
+      class="btn waves-effect white grey-text darken-text-2 prev"
+      shortcut="ArrowLeft shift+Space">
+      &larr; prev
+    </button>
+    <button
+      class="btn waves-effect white grey-text darken-text-2 next"
+      shortcut="ArrowRight Space">
+      next &rarr;
+    </button>
+  </div>
+{{#eachfile "/docs/presentation"}}
+  <div class="carousel-item center-content">
+    <nav style="position: absolute; top: 0;">
+    {{#eachpathseg webPath}}
+      <a href="{{this.path}}" class="breadcrumb grey-text text-lighten-2">{{this.current}}</a>
+    {{/eachpathseg}}
+    </nav>
+    <!--{{{json this null "  "}}}-->
+    <div class="card">
+      <div class="card-content">
+      {{{md this}}}
+      </div>
+    </div>
+  </div>
+{{/eachfile}}
+{{/inline}}
+{{/layouts/main}}

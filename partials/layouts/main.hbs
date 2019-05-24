@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#000" />
+  <title>{{> title}}</title>
+  <script src="/src/js/materialize.js"></script>
+  <script src="/jquery/jquery.min.js" type="text/javascript"></script>
+  <link rel="stylesheet" href="/src/css/materialize.css">
+  <link rel="stylesheet" href="/src/css/github-markdown.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <style>
+    ul.indicators .indicator-item {
+      background-color: rgba(0,0,0,.2) !important;
+    }
+
+    ul.indicators .indicator-item.active {
+      background-color: #00c8ff !important;
+    }
+
+    .center-content {
+      width: 100%;
+      display: flex;
+      flex: 1 1 0;
+      align-items: center;
+      justify-content: center;
+      flex-flow: column;
+    }
+
+    .center-content:first-child::before {
+      content: ' ';
+      align-self: flex-start;
+      order: 0;
+    }
+
+    .center-content:nth-child(n) {
+      order: 1;
+    }
+
+    .center-content:last-child::after {
+      content: ' ';
+      align-self: flex-end;
+      order: 2
+    }
+
+    .breadcrumb::before {
+      color: rgba(0,0,0,.2);
+    }
+  </style>
+</head>
+
+<body>
+  {{#unless disableContainers}}<div class="container">{{/unless}}
+  {{> content}}
+  {{#unless disableContainers}}</div>{{/unless}}
+
+  <script src="/src/js/init.js"></script>
+</body>
+
+</html>

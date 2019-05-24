@@ -1,0 +1,28 @@
+{{#> "layouts/main"}}
+{{#*inline "title"}}
+{{path}} - Directory
+{{/inline}}
+{{#*inline "content"}}
+<h1>Index of {{path}}</h1>
+{{#eachfile path}}
+<!--{{{json this null "  "}}}-->
+<div class="card">
+  <div class="card-content">
+    <span class="card-title">{{name}}</span>
+    <dl>
+      <dt>Local</dt>
+      <dd>{{localPath}}</dd>
+      <dt>Web</dt>
+      <dd>{{webPath}}</dd>
+      <dt>Type</dt>
+      <dd>{{type}}</dd>
+      {{#ifEquals type "File"}}
+      <dt>Size</dt>
+      <dd>{{filesize stats.size}}</dd>
+      {{/ifEquals}}
+    </dl>
+  </div>
+</div>
+{{/eachfile}}
+{{/inline}}
+{{/layouts/main}}
