@@ -3,6 +3,12 @@
 NoSQL - Presentation
 {{/inline}}
 {{#*inline "content"}}
+<style>
+  img {
+    max-width: 50%
+  }
+</style>
+
 <div class="carousel carousel-slider">
   <div class="carousel-fixed-item center">
     <button
@@ -18,15 +24,15 @@ NoSQL - Presentation
   </div>
 {{#eachfile "/docs/presentation"}}
   <div class="carousel-item center-content">
-    <nav style="position: absolute; top: 0;">
+    {{!-- <nav style="position: absolute; top: 0;">
     {{#eachpathseg webPath}}
-      <a href="{{this.path}}" class="breadcrumb grey-text text-lighten-2">{{this.current}}</a>
+      <a href="{{path}}" class="breadcrumb grey-text text-lighten-2">{{this.current}}</a>
     {{/eachpathseg}}
-    </nav>
+    </nav> --}}
     <!--{{{json this null "  "}}}-->
     <div class="card">
       <div class="card-content">
-      {{{md this}}}
+      {{{md webPath replace="<ul>:<ul class='browser-default'>|<img:<img class='materialboxed'"}}}
       </div>
     </div>
   </div>

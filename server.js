@@ -25,16 +25,29 @@ function htmlTemplate(content, data) {
 let app = express();
 
 let md = new MarkdownIt('commonmark', {
-  // html: true,
-  // linkify: true,
-  // langPrefix: 'language-',
+  html: true,
+  linkify: true,
+  langPrefix: 'language-',
 });
 
-handlebars.registerHelper('md', function(p) {
+handlebars.registerHelper('md', function(p, options) {
   let _p = path.join(__dirname, p);
   if(fs.existsSync(_p)) {
+    // .split('<ul>').join('<ul class="browser-default">')
+
+    let c = md.render(fs.readFileSync(_p).toString('utf8'));
+
+    if(typeof options.hash['replace'] == 'string') {
+      options.hash['replace'].split('|').forEach(o => {
+        let _ = o.split(':');
+        if(_.length == 2) {
+          c = c.split(_[0]).join(_[1]);
+        }
+      });
+    }
+
     return htmlTemplate(fs.readFileSync(path.join(__dirname, './html/mdwrapper.html')).toString('utf8'), {
-      content: md.render(fs.readFileSync(_p).toString('utf8'))
+      content: c
     });
   } return htmlTemplate(fs.readFileSync('./html/notfound.html').toString('utf8'), {
     name: p
@@ -52,7 +65,6 @@ handlebars.registerHelper('eachfile', (p, ...args) => {
     .map(f => {
       let stats = fs.statSync(path.join(__dirname, p, f));
       let type = Object.getOwnPropertyNames(fs.Stats.prototype)
-        .map(n => console.log(n) || n)
         .filter(n => typeof fs.Stats.prototype[n] === 'function' && n.startsWith('is'))
         .filter(n => fs.Stats.prototype[n].call(stats))
         .map(n => n.substring(2, n.length))
